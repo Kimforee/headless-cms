@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Headless CMS</title>
+</head>
+<body>
+  <h1>Headless CMS</h1>
+
+  <h2>Create Entity</h2>
+  <form id="createEntityForm">
+    <input type="text" id="entityName" placeholder="Entity Name" required>
+    <textarea id="attributes" placeholder="Attributes (JSON)" required></textarea>
+    <button type="submit">Create Entity</button>
+  </form>
+
+  <h2>Create Data</h2>
+  <form id="createDataForm">
+    <input type="text" id="dataEntityName" placeholder="Entity Name" required>
+    <textarea id="data" placeholder="Data (JSON)" required></textarea>
+    <button type="submit">Create Data</button>
+  </form>
+
+  <script>
+    document.getElementById('createEntityForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('entityName').value;
+      const attributes = JSON.parse(document.getElementById('attributes').value);
+
+      await fetch('/api/entities', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, attributes })
+      });
+
+      alert('Entity created');
+    });
+
+    document.getElementById('createDataForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const entityName = document.getElementById('dataEntityName').value;
+      const data = JSON.parse(document.getElementById('data').value);
+
+      await fetch(`/api/entities/${entityName}/data`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      alert('Data created');
+    });
+  </script>
+</body>
+</html>
