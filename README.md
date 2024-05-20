@@ -1,0 +1,2 @@
+# headless-cms
+ A very rudimentary headless CMS with basic CRUD functionality. This project allows you to create different entities from the frontend by specifying their attributes and types. When an entity is created, the app automatically generates the corresponding table definition in a PostgreSQL database. After creating an entity, you can create, read, update, and delete data from the frontend.
